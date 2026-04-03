@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shoply</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header glass">
+  <div class="left"><button id="menuBtn">&#9776;</button></div>
+  <div class="center"><h1>shoply</h1></div>
+  <div class="right">
+    <button id="wishlistBtn">&#10084;</button>
+    <button id="cartBtn">&#128722;<span id="cartCount">0</span></button>
+  </div>
+</header>
+
+<section class="search-bar glass">
+  <input type="text" id="searchInput" placeholder="Search products...">
+</section>
+
+<section class="banner glass gradient-bg">
+  <div>
+    <h2>35% OFF on first purchase!</h2>
+    <button class="btn-gradient">Download Now</button>
+  </div>
+</section>
+
+<section class="location-bar glass">
+  <p>Add delivery location to check extra discount</p>
+</section>
+
+<section class="categories">
+  <div class="category-scroll" id="categoryScroll">
+    <!-- Categories populated by JS -->
+  </div>
+</section>
+
+<section class="products">
+  <h3>Products For You</h3>
+  <div class="filter-bar glass">
+    <select id="sortSelect">
+      <option value="">Sort</option>
+      <option value="low">Price Low to High</option>
+      <option value="high">Price High to Low</option>
+    </select>
+    <select id="categoryFilter"></select>
+    <select id="genderFilter">
+      <option value="">Gender</option>
+      <option value="Female">Female</option>
+      <option value="Male">Male</option>
+      <option value="Kids">Kids</option>
+    </select>
+    <button id="filterBtn">Filters</button>
+  </div>
+  <div id="productGrid" class="product-grid"></div>
+</section>
+
+<section id="cartPage" class="page glass hidden">
+  <h3>Your Cart</h3>
+  <div id="cartItems"></div>
+  <p id="cartTotal"></p>
+  <button onclick="location.href='checkout.html'" class="btn-gradient">Proceed to Checkout</button>
+</section>
+
+<nav class="bottom-nav glass">
+  <button>Home</button>
+  <button>Categories</button>
+  <button>Mall</button>
+  <button>Help</button>
+  <button>Account</button>
+</nav>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
