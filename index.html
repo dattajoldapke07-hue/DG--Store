@@ -6,114 +6,7 @@
     <title>💎 Datta & Ajay's Luxury Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <style>
-        :root { 
-            --primary: #6366f1; 
-            --dark: #0f172a; 
-            --accent: #f43f5e;
-            --surface: #ffffff;
-            --bg: #f8fafc;
-            --text-main: #1e293b;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        * { box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; background: var(--bg); color: var(--text-main); scroll-behavior: smooth; }
-        .hidden { display: none !important; }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-
-        /* Header Modern */
-        header { 
-            background: rgba(255, 255, 255, 0.8); 
-            backdrop-filter: blur(12px);
-            padding: 12px 20px; 
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            position: sticky; top: 0; z-index: 1000;
-            display: flex; flex-direction: column; align-items: center;
-        }
-
-        .logo { font-weight: 800; font-size: 1.4rem; background: linear-gradient(to right, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; }
-
-        .nav-buttons { display: flex; gap: 10px; margin-top: 15px; width: 100%; justify-content: center; }
-        .btn { 
-            background: var(--surface); border: 1px solid #e2e8f0; color: var(--text-main); 
-            padding: 8px 16px; border-radius: 12px; cursor: pointer; font-size: 0.85rem; 
-            font-weight: 600; display: flex; align-items: center; gap: 8px; transition: all 0.2s;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-        .btn:active { transform: scale(0.95); }
-        .btn-cart { background: var(--dark); color: white; border: none; }
-
-        /* Categories Ribbon */
-        .cat-scroll { display: flex; overflow-x: auto; gap: 25px; padding: 20px; background: var(--surface); scrollbar-width: none; }
-        .cat-item { text-align: center; flex: 0 0 auto; cursor: pointer; transition: 0.3s; }
-        .cat-item img { 
-            width: 65px; height: 65px; border-radius: 20px; 
-            object-fit: cover; border: 3px solid transparent; transition: 0.3s;
-            box-shadow: var(--shadow);
-        }
-        .cat-item:hover img { border-color: var(--primary); transform: translateY(-5px); }
-        .cat-item span { display: block; font-size: 0.75rem; margin-top: 8px; font-weight: 600; opacity: 0.8; }
-
-        /* Product Cards Premium */
-        #products { display: grid; gap: 15px; padding: 15px; grid-template-columns: repeat(2, 1fr); }
-        @media (min-width: 1024px) { #products { grid-template-columns: repeat(5, 1fr); gap: 25px; padding: 40px; } }
-        
-        .product { 
-            background: var(--surface); border-radius: 20px; overflow: hidden; 
-            transition: all 0.3s; border: 1px solid rgba(0,0,0,0.03);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-        .product:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-        .product img { width: 100%; height: 180px; object-fit: cover; }
-        .p-info { padding: 15px; text-align: left; }
-        .p-name { font-size: 0.9rem; font-weight: 600; margin: 0; color: var(--dark); height: 2.4em; overflow: hidden; }
-        .p-price { font-size: 1.1rem; font-weight: 700; color: var(--primary); display: block; margin: 8px 0; }
-        
-        .add-btn { 
-            background: #f1f5f9; color: var(--dark); border: none; padding: 10px; 
-            width: 100%; border-radius: 12px; cursor: pointer; font-weight: 700; 
-            font-size: 0.8rem; transition: 0.2s;
-        }
-        .product:hover .add-btn { background: var(--primary); color: white; }
-
-        /* Sidebar Glassify */
-        .sidebar { 
-            position: fixed; top: 0; right: -100%; width: 90%; max-width: 400px; height: 100%; 
-            background: white; z-index: 2000; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-            display: flex; flex-direction: column;
-        }
-        .sidebar.open { right: 0; box-shadow: -20px 0 50px rgba(0,0,0,0.15); }
-        .sb-head { padding: 25px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; font-size: 1.2rem; }
-
-        /* Checkout Styling */
-        .modal-overlay { 
-            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8); 
-            backdrop-filter: blur(8px); z-index: 3000; display: flex; justify-content: center; align-items: center; 
-        }
-        .modal-content { 
-            background: white; width: 95%; max-width: 500px; border-radius: 24px; 
-            padding: 30px; position: relative; max-height: 90vh; overflow-y: auto;
-        }
-        input, select, textarea { 
-            width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid #e2e8f0; 
-            border-radius: 14px; font-size: 0.95rem; background: #f8fafc;
-        }
-        input:focus { border-color: var(--primary); outline: none; background: white; }
-
-        /* Order Success Animation */
-        .success-check { color: #10b981; font-size: 4rem; margin-bottom: 20px; animation: scaleUp 0.5s ease; }
-        @keyframes scaleUp { from {transform: scale(0);} to {transform: scale(1);} }
-
-        /* Invoice Premium */
-        .invoice-box { background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden; }
-        .invoice-top { background: var(--dark); color: white; padding: 20px; text-align: center; }
-        .bill-item { display: flex; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -140,7 +33,6 @@
     </header>
 
     <div class="cat-scroll" id="catBar"></div>
-    
     <div style="padding: 20px 20px 0; font-weight: 700; font-size: 1.2rem;" id="catTitle">Featured Collection</div>
     <main id="products"></main>
 </div>
@@ -165,24 +57,23 @@
             <input type="text" id="cName" placeholder="Full Name">
             
             <label style="font-size: 0.8rem; font-weight:600; color:#64748b;">MOBILE VERIFICATION</label>
-            <div class="phone-group">
-                <select id="countryCode">
+            <div class="phone-group" style="display: flex; gap: 5px;">
+                <select id="countryCode" style="width: 30%;">
                     <option value="+91">🇮🇳 +91</option>
                     <option value="+1">🇺🇸 +1</option>
-                    <option value="+44">🇬🇧 +44</option>
                 </select>
                 <input type="number" id="cPhone" placeholder="Phone Number">
             </div>
 
-            <label style="font-size: 0.8rem; font-weight:600; color:#64748b;">DELIVERY ADDRESS</label>
-            <textarea id="cAddr" placeholder="Street, Building, City, Pincode" rows="3"></textarea>
+            <label style="font-size: 0.8rem; font-weight:600; color:#64748b;">DELIVERY ADDRESS *</label>
+            <textarea id="cAddr" placeholder="Street, Building, City, Pincode" rows="3" required></textarea>
             
             <h4 style="margin:20px 0 10px;">Payment Method</h4>
-            <div class="pay-option" id="opt-upi" onclick="setPay('upi')"><i class="fa fa-qrcode"></i> UPI Transfer</div>
+            <div class="pay-option btn" id="opt-upi" style="margin-bottom: 10px; width: 100%;" onclick="setPay('upi')"><i class="fa fa-qrcode"></i> UPI Transfer</div>
             <div id="upiBox" class="hidden"><input type="text" id="upiIdInput" placeholder="Enter your UPI ID"></div>
-            <div class="pay-option" id="opt-cod" onclick="setPay('cod')"><i class="fa fa-truck"></i> Cash on Delivery</div>
+            <div class="pay-option btn" id="opt-cod" style="width: 100%;" onclick="setPay('cod')"><i class="fa fa-truck"></i> Cash on Delivery</div>
 
-            <button class="add-btn" style="background:var(--primary); color:white; padding:18px; margin-top:10px; font-size:1.1rem;" onclick="processOrder()">Place Order</button>
+            <button class="add-btn" style="background:var(--primary); color:white; padding:18px; margin-top:20px; font-size:1.1rem;" onclick="processOrder()">Place Order</button>
             <p style="text-align:center; color:#94a3b8; font-size:0.85rem; margin-top:15px; cursor:pointer;" onclick="closeCheckout()">Cancel Order</p>
         </div>
 
@@ -204,222 +95,6 @@
     </div>
 </div>
 
-<script>
-// DATA REMAINS UNCHANGED AS REQUESTED
-const categories = [
-    {id: 'all', name: 'All Products', img: 'https://cdn-icons-png.flaticon.com/512/3081/3081840.png'},
-    {id: 'clothing', name: 'Clothing', img: 'https://www.stylesgap.com/wp-content/uploads/2014/10/Latest-Women-Best-Kurti-Designs-Collection-For-Winter-by-Fabindia-2015-2016-19.jpg'},
-    {id: 'electronics', name: 'Electronics', img: 'http://hammeronline.in/cdn/shop/files/TWSEarbudsCombo.webp?v=1716958465'},
-    {id: 'footwear', name: 'Footwear', img: 'https://i5.walmartimages.com/seo/Mens-Dress-Shoes-Formal-Business-Oxford-Suit-High-Gloss-Patent-Leather-Slip-On-Loafers-Comfortable-Shoe-for-Men_191f76fc-4801-443e-9fd4-3be37cdc56f7.36b93151496f079b023def53bc7487b5.jpeg'},
-    {id: 'beauty', name: 'Beauty', img: 'https://img.freepik.com/premium-photo/collection-beauty-products-is-available-colors-sizes_948735-100632.jpg'},
-    {id: 'home', name: 'Home', img: 'https://m.media-amazon.com/images/I/81aDFFF40hL.jpg'},
-    {id: 'toys', name: 'Toys', img: 'https://www.chemicalsafetyfacts.org/wp-content/uploads/shutterstock_383521510-002-scaled.jpg'},
-    {id: 'sports', name: 'Sports', img: 'https://cdn.ttgtmedia.com/rms/editorial/sports-290px.jpg'},
-    {id: 'accessories', name: 'Accessories', img: 'https://www.techspecs.info/blog/wp-content/uploads/2024/06/Top-Mobile-Phone-Accessories.jpg'},
-    {id: 'stationery', name: 'Books', img: 'https://bizimages.withfloats.com/actual/5774ca1a9ec66822cc062dca.jpg'},
-    {id: 'gadgets', name: 'Gadgets', img: 'https://vinncorp.com/wp-content/uploads/2023/06/Virtual-Reality-in-Gaming.webp'}
-];
-
-const allProducts = [
-    { id: 101, name: "Silk Saree", price: 2500, cat: "clothing", img: "https://i.postimg.cc/x8MjmSxy/IMG-20260325-WA0001.jpg" },
-    { id: 102, name: "Cotton Summer Kurti", price: 899, cat: "clothing", img: "https://i.pinimg.com/originals/a7/ed/47/a7ed474104dcf802989a2c0f3ba3f9e8.jpg" },
-    { id: 103, name: "Designer Wedding Lehenga", price: 8500, cat: "clothing", img: "https://assets.vogue.in/photos/5f6c7a4c10dbc0617e889b18/2:3/w_2732%2cc_limit/Shraddha%20Kapoor%20in%20Falguni%20Shane%20Peacock%20lehenga%20from%20India%20Couture%20Week%202020.jpg" },
-    { id: 104, name: "Casual Denim Jacket", price: 1200, cat: "clothing", img: "https://i5.walmartimages.com/seo/Xysaqa-Men-s-Casual-Denim-Jacket-Mens-Classic-Slim-Fitted-Button-Up-Jean-Jacket-Cotton-Fashion-Long-Sleeve-Trucker-Jacket-for-Men-Army-Green_2f1f81d7-a274-4e03-986c-dabdd127833f.b08296d74db0da24843010452e2d0147.jpeg" },
-    { id: 105, name: "Formal White Shirt", price: 799, cat: "clothing", img: "https://hespoke.live/cdn/shop/files/solid-formal-white-shirt-shirt-he-spoke-999551.jpg?v=1724821785&width=1445" },
-    { id: 106, name: "Evening Party Gown", price: 3500, cat: "clothing", img: "https://dlp2gfjvaz867.cloudfront.net/product_photos/46600576/product-hugerect-637320-249199-1458209355-4a968547be5d336c08f293cfda15636b_original.jpg" },
-    { id: 107, name: "Activewear Track Suit", price: 1500, cat: "clothing", img: "https://fireox.pk/cdn/shop/files/AG6A9756copy.jpg?v=1699345163" },
-    { id: 108, name: "Embroidered Woolen Shawl", price: 1100, cat: "clothing", img: "https://5.imimg.com/data5/SELLER/Default/2023/1/FF/PA/XS/2284126/red-kashmiri-shawl-multicolored-kashmiri-aari-embroidery-flower-jaal-1000x1000.jpg" },
-    { id: 109, name: "Graphic Print Tee", price: 499, cat: "clothing", img: "https://i.pinimg.com/originals/27/9d/c5/279dc56cb73c0f91ad34c78f61ebf874.jpg" },
-    { id: 110, name: "Floral Maxi Dress", price: 1299, cat: "clothing", img: "https://i.pinimg.com/originals/9f/e8/fc/9fe8fc8852a6c34041820b80b5cd11c8.png" },
-    { id: 201, name: "Noise Cancelling Buds", price: 1999, cat: "electronics", img: "https://m.media-amazon.com/images/I/71yJgV4tFvL._AC_SL1500_.jpg" },
-    { id: 202, name: "Smart Watch Series 7", price: 2499, cat: "electronics", img: "https://m.media-amazon.com/images/I/71p1EMtYnvL._AC_SL1500_.jpg" },
-    { id: 203, name: "20000mAh Powerbank", price: 1499, cat: "electronics", img: "https://ph-test-11.slatic.net/p/3a87cb7e4234ae8da67ae4a379be1622.jpg" },
-    { id: 204, name: "Over-Ear Headphones", price: 2999, cat: "electronics", img: "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/de2d6c30-fad7-458c-b40f-9b1980571c4f.jpg" },
-    { id: 205, name: "Portable BT Speaker", price: 1200, cat: "electronics", img: "https://m.media-amazon.com/images/I/81p9DPknjLL._AC_.jpg" },
-    { id: 207, name: "6-in-1 USB-C Hub", price: 1100, cat: "electronics", img: "https://eu.ugreen.com/cdn/shop/files/ugreen-uno-6-in-1-usb-c-hub-109683.png?v=1732887004" },
-    { id: 208, name: "Aluminum Laptop Stand", price: 650, cat: "electronics", img: "https://m.media-amazon.com/images/I/71b5-q05iVL._AC_SL1500_.jpg" },
-    { id: 209, name: "Vlogger Ring Light", price: 999, cat: "electronics", img: "https://img.lazcdn.com/g/p/844c6affc4d6bd1e5da5d3b5e3556ff2.jpg_720x720q80.jpg" },
-    { id: 210, name: "Full HD Webcam", price: 1800, cat: "electronics", img: "https://i5.walmartimages.com/asr/4f20f0e0-2e0b-41aa-a805-277b31b43323.226be6876614452cb33004914f04ff22.jpeg?odnWidth=1000&odnHeight=1000&odnBg=ffffff" },
-    { id: 301, name: "Nike Air Max Style", price: 3500, cat: "footwear", img: "https://static.nike.com/a/images/w_1280,c_limit,q_auto,f_auto/bc96901b-487e-478b-af33-2d0aa0d3ed37/snkrs-style-air-max-1-low-poly.jpg" },
-    { id: 302, name: "Tan Leather Loafers", price: 1800, cat: "footwear", img: "https://www.marshallshoes.co.uk/images/mens-wiggins-tan-hand-painted-leather-loafers-p14542-50819_zoom.jpg" },
-    { id: 303, name: "Rajasthani Mojari", price: 650, cat: "footwear", img: "https://images-na.ssl-images-amazon.com/images/I/61AeXCbyAkL._AC_UL1500_.jpg" },
-    { id: 304, name: "Pro Running Shoes", price: 2200, cat: "footwear", img: "https://tse1.mm.bing.net/th/id/OIP.Q5ONBkKGtUsIrbfMruS51QHaE7?pid=Api&P=0&h=180" },
-    { id: 305, name: "Comfortable Sliders", price: 499, cat: "footwear", img: "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/397694/02/sv01/fnd/IND/fmt/png/Royalcat-Comfort-Slides" },
-    { id: 308, name: "White Canvas Shoes", price: 999, cat: "footwear", img: "https://i5.walmartimages.com/seo/Classic-White-Canvas-Shoes-Women-Summer-Sneakers-Casual-Flats-Shoes-LadiesTrainers-White-Sneakers-Tenis-Feminino-2022-White-canvas-11-5_50bdb61f-e139-4195-85ff-6ff67253b1fb.dd35cba178ce205abcdd5f3b6be30b30.jpeg" },
-    { id: 309, name: "Classic Oxford Shoes", price: 1999, cat: "footwear", img: "https://www.cheaney.co.uk/images/cheaney-lime-classic-oxford-in-black-calf-leather-leather-sole-p34-1274_image.jpg" },
-    { id: 310, name: "Waterproof Sandals", price: 550, cat: "footwear", img: "https://tse2.mm.bing.net/th/id/OIP.pcdXl8ubRUB_VJ0deoVsygHaI4?pid=Api&P=0&h=180" },
-    { id: 401, name: "Herbs & More Soap", price: 67, cat: "beauty", img: "https://netsurfdirect.com/Content/images/index-banner-moisturising-soap-mobile.jpg" },
-    { id: 402, name: "Vitamin C Face Serum", price: 699, cat: "beauty", img: "https://i.etsystatic.com/16102598/r/il/aae70c/6088105138/il_1080xN.6088105138_8i5y.jpg" },
-    { id: 403, name: "Organic Onion Hair Oil", price: 350, cat: "beauty", img: "https://cdn.fcglcdn.com/brainbees/images/products/583x720/8916729a.webp" },
-    { id: 404, name: "Sunscreen SPF 50", price: 499, cat: "beauty", img: "https://cosmocosmetics.ae/cdn/shop/files/Hydrating-Gel-Lotion-Sunscreen-SPF50_---100g_cd258f38-30cf-40c9-a86e-0d0319ec78ed.jpg?v=1725449111&width=%7Bwidth%7D" },
-    { id: 405, name: "Charcoal Face Wash", price: 299, cat: "beauty", img: "https://cdn01.pharmeasy.in/dam/products_otc/U37620/ponds-pure-detox-face-wash-200-g-with-activated-charcoal-for-fresh-glowing-skin-6.2-1674205014.jpg" },
-    { id: 406, name: "Midnight Oud Perfume", price: 1200, cat: "beauty", img: "https://www.perfumenz.co.nz/cdn/shop/files/ard-al-zaafaran-midnight-oud_1024x1024.png?v=1736821502" },
-    { id: 407, name: "Eye Shadow Palette", price: 850, cat: "beauty", img: "https://www.letcos.com/wp-content/uploads/2023/02/eyeshadow-palette-1-2.jpg" },
-    { id: 408, name: "Beard Grooming Kit", price: 999, cat: "beauty", img: "https://m.media-amazon.com/images/I/81oBnlLr5YS._AC_SL1500_.jpg" },
-    { id: 409, name: "Ionic Hair Dryer", price: 1500, cat: "beauty", img: "https://m.media-amazon.com/images/I/71RKVCQE8sL._AC_.jpg" },
-    { id: 410, name: "Gel Nail Polish Set", price: 599, cat: "beauty", img: "https://m.media-amazon.com/images/I/81kPLlI497L._AC_SL1500_.jpg" },
-    { id: 501, name: "Ceramic Coffee Mug", price: 199, cat: "home", img: "https://m.media-amazon.com/images/I/61g9gF-eHeL._AC_.jpg" },
-    { id: 502, name: "Non-Stick Stir Fry Pan", price: 899, cat: "home", img: "https://i5.walmartimages.com/seo/Cook-N-Home-Hard-Anodized-Nonstick-Wok-with-Lid-12-Inch-Non-Stick-Stir-Fry-Pan-Flat-Bottom-Wok-Pan-Induction-Cookware-Black_c9cf0a1f-a221-43db-bc4d-aa328af85637.b2656bbe772b04147ede5840b0bf6089.jpeg" },
-    { id: 503, name: "King Size Bed Sheet", price: 1200, cat: "home", img: "https://m.media-amazon.com/images/I/81I1mYOk-tL._AC_SL1500_.jpg" },
-    { id: 504, name: "Wall Clock", price: 550, cat: "home", img: "https://images.suite101.com/wp-content/uploads/2024/08/minimalist-wall-clock.jpg" },
-    { id: 505, name: "Glass Flower Vase", price: 450, cat: "home", img: "https://m.media-amazon.com/images/I/61FfpE6FLjL._AC_SL1000_.jpg" },
-    { id: 506, name: "Modern Table Lamp", price: 1100, cat: "home", img: "https://image.lampsplus.com/is/image/b9gt8/360-lighting-anna-beige-pebbled-coastal-modern-table-lamps-set-of-2__286y0cropped.jpg?qlt=70&wid=1200&hei=1200&fmt=jpeg" },
-    { id: 507, name: "Knife Set", price: 750, cat: "home", img: "https://m.media-amazon.com/images/I/81e1h4isgAL.jpg" },
-    { id: 508, name: "Fabric Storage Box", price: 399, cat: "home", img: "https://i5.walmartimages.com/seo/Fabric-Storage-Boxes-Lids-2-Pack-Linen-Clothing-Shelf-Basket-Bins-Collapsible-Cubes-Closet-Organizers-Containers-Office-Home-Bedroom-Storage-Gray-10_1deb50ea-432e-484d-84b0-6170098f972e.eca266b08eac300cab9611fa2f470f45.png" },
-    { id: 509, name: "Welcome Door Mat", price: 250, cat: "home", img: "https://i5.walmartimages.com/seo/Sanmadrola-Doormat-Outdoor-Welcome-Mat-Front-Door-24-x47-Floor-Mats-Indoor-Rubber-Backing-Non-Slip-Heavy-Duty-Patio-Entrance-Brown_ae776027-b7d7-4b13-8d22-6b5938c8a407.a2d20a8ff1259deebd6e112c22be1811.jpeg" },
-    { id: 510, name: "Velvet Cushion Covers", price: 499, cat: "home", img: "https://i.etsystatic.com/35274987/r/il/d97fec/5170250613/il_1080xN.5170250613_n946.jpg" },
-    { id: 601, name: "Giant Teddy Bear", price: 999, cat: "toys", img: "https://i5.walmartimages.com/seo/MaoGoLan-4-6ft-Giant-Teddy-Bear-55-Large-Stuffed-Animals-Big-Bear-Plush-Toy_8cabb4dc-18ff-4c41-a97e-c2675f9e9289.beafb6127f767aae6668e3d6e6add8c4.jpeg" },
-    { id: 602, name: "Remote Control SUV", price: 1800, cat: "toys", img: "https://m.media-amazon.com/images/I/61b+ZwWVkQL._AC_SL1080_.jpg" },
-    { id: 603, name: "Building Blocks Set", price: 1200, cat: "toys", img: "https://m.media-amazon.com/images/I/71HdMYjNabS._AC_SL1500_.jpg" },
-    { id: 604, name: "Speed Rubiks Cube", price: 299, cat: "toys", img: "https://cdn.fcglcdn.com/brainbees/images/products/583x720/14747703a.webp" },
-    { id: 605, name: "Fashionista Doll", price: 650, cat: "toys", img: "https://i5.walmartimages.com/seo/Barbie-Fashionistas-Doll-214-Black-Wavy-Hair-with-Twist-n-Turn-Dress-Accessories-65th-Anniversary-Collectible-Fashion-Doll_cabe6db4-1335-4f3a-9857-cb12fe29eda8.efc56727a5ed65c7128183f3ec43ef46.jpeg" },
-    { id: 606, name: "Magnetic Chess Set", price: 550, cat: "toys", img: "https://cdn.fcglcdn.com/brainbees/images/products/583x720/20371605a.webp" },
-    { id: 607, name: "LCD Drawing Tablet", price: 499, cat: "toys", img: "https://electronikz.com/images/lcd-drawing-tablet-12-inch_thumbnail.jpg" },
-    { id: 608, name: "Realistic Dino Set", price: 750, cat: "toys", img: "https://m.media-amazon.com/images/I/81O0HwG-zDL._AC_SL1500_.jpg" },
-    { id: 609, name: "Soft Cricket Ball", price: 150, cat: "toys", img: "https://rccricket.co.uk/cdn/shop/files/YouthsOrange-IC30LeftSeamcopy.png?v=1704040931&width=1445" },
-    { id: 610, name: "Metal Yo-Yo", price: 199, cat: "toys", img: "https://yoyofactory.com/cdn/shop/collections/metal-yoyos.jpg?v=1648743536&width=1500" },
-    { id: 701, name: "TPE Yoga Mat", price: 650, cat: "sports", img: "https://www.pekfitness.com/wp-content/uploads/TPE-Yoga-mat-3.jpg" },
-    { id: 702, name: "Iron Dumbbells 5kg", price: 1100, cat: "sports", img: "https://contents.mediadecathlon.com/p2720129/k$47423c440776298373204a99089eeffb/picture.jpg" },
-    { id: 703, name: "Skipping Rope", price: 250, cat: "sports", img: "https://cdn.shopify.com/s/files/1/0128/9397/8683/products/gnd-rf-alloy-speed-skipping-rope-double-ball-bearing-lime-green-rf-skipping-rope-648310.jpg?v=1678943778" },
-    { id: 704, name: "English Willow Bat", price: 4500, cat: "sports", img: "https://www.sstoncricket.com/wp-content/uploads/2023/04/LE-scaled.jpg" },
-    { id: 705, name: "Professional Football", price: 850, cat: "sports", img: "https://assets.adidas.com/images/w_940,f_auto,q_auto/7695e774bd054d6c86dfaf2d00f1a331_9366/HT9011_01_standard.jpg" },
-    { id: 706, name: "Badminton Racket Set", price: 1200, cat: "sports", img: "https://pictures-uganda.jijistatic.com/27873427_MTYwMC0xMjAwLTIxZjM2NGI3ZWU.webp" },
-    { id: 707, name: "Swimming Goggles", price: 399, cat: "sports", img: "https://uk.farnell.com/productimages/large/en_GB/2675826-40.jpg" },
-    { id: 708, name: "Gym Bag", price: 899, cat: "sports", img: "https://images.lululemon.com/is/image/lululemon/LU9BRKS_0001_1" },
-    { id: 709, name: "Boxing Gloves", price: 1500, cat: "sports", img: "https://warforgedapparel.com/cdn/shop/products/317886318_672687637649108_8736994039022514398_n.jpg?v=1679693907&width=1292" },
-    { id: 710, name: "Ab Roller", price: 450, cat: "sports", img: "https://m.media-amazon.com/images/I/71+yfdDf+GL._AC_SL1500_.jpg" },
-    { id: 801, name: "Sunglasses", price: 999, cat: "accessories", img: "https://realityrefined.com/cdn/shop/files/BlueSunglasses1.png?v=1704417392&width=800" },
-    { id: 802, name: "Leather Wallet", price: 550, cat: "accessories", img: "https://m.media-amazon.com/images/I/81xe9t7Pz4L._AC_SL1383_.jpg" },
-    { id: 803, name: "Backpack", price: 1800, cat: "accessories", img: "https://m.media-amazon.com/images/I/718bROhYU9L._AC_.jpg" },
-    { id: 804, name: "Mens Belt", price: 450, cat: "accessories", img: "https://i5.walmartimages.com/seo/Casual-Stretch-Belts-for-Men-Adjustable-Braided-Mens-Elastic-Belt-Ideal-Gifts-for-Golf-Dress-Work_3ddc0621-61b2-4682-b71d-b0b066bd630b.fb1365b59f4a4887810a2eea66b2a744.jpeg" },
-    { id: 805, name: "Quilted Handbag", price: 2200, cat: "accessories", img: "http://www.allfashionbags.com/wp-content/uploads/2016/12/Black-Quilted-Bag-Images.jpg" },
-    { id: 806, name: "Silk Tie", price: 350, cat: "accessories", img: "https://i5.walmartimages.com/seo/Goofa-Blue-Paisley-Pattern-Vintage-Pattern-Men-s-Necktie-Classic-Silk-Tie-Woven-Jacquard-Neck-Ties-Necktie-for-Business-and-Wedding-Formal-Neckties_622ac6ab-4e93-4f85-aecc-48a783732a26.67ccffad8cb9cd0f58d9e3d6b37f2034.jpeg" },
-    { id: 807, name: "Silver Chain", price: 1500, cat: "accessories", img: "https://i.etsystatic.com/47658315/r/il/419bc8/5486879196/il_fullxfull.5486879196_7qi5.jpg" },
-    { id: 808, name: "Baseball Cap", price: 399, cat: "accessories", img: "https://i.pinimg.com/originals/ed/6f/eb/ed6febb763f9f0926ca177f281a54792.jpg" },
-    { id: 809, name: "Windproof Umbrella", price: 499, cat: "accessories", img: "https://i5.walmartimages.com/seo/TUMELLA-Strongest-Windproof-Travel-Umbrella-Compact-Superior-Beautiful-Small-Strong-Light-Portable-Automatic-Folding-Rain-Umbrella-Durable-Premium-Gr_7e0c104d-d84d-46d8-91e2-7a43808c73dd.a152a30a0e4a78542b99a030cc70d4e8.jpeg" },
-    { id: 810, name: "Key Organizer", price: 299, cat: "accessories", img: "https://roarcraft.com/cdn/shop/files/deri-anahtar-organizer-key_1400x.jpg?v=1718368387" },
-    { id: 901, name: "Hardcover Journal", price: 350, cat: "stationery", img: "https://m.media-amazon.com/images/I/813m1YchkAL._AC_.jpg" },
-    { id: 902, name: "Rollerball Pen", price: 850, cat: "stationery", img: "https://i5.walmartimages.com/seo/Scriveiner-Silver-Chrome-Rollerball-Pen-Stunning-Luxury-24K-Gold-Finish-Schmidt-Ink-Refill-Best-Roller-Ball-Gift-Set-Men-Women-Professional-Executive_a05ec3dd-50ec-46c7-88c9-0537c46fc754.aaa98178c4aa381fbd170f47ca5e9868.jpeg" },
-    { id: 903, name: "Sticky Notes", price: 99, cat: "stationery", img: "https://djl2kq23xfhqi.cloudfront.net/productimages/JSNN00_1.jpg" },
-    { id: 904, name: "File Folder", price: 450, cat: "stationery", img: "https://i.etsystatic.com/16546621/r/il/7b7480/5990042066/il_1080xN.5990042066_9b49.jpg" },
-    { id: 905, name: "Mystery Novel", price: 399, cat: "stationery", img: "https://m.media-amazon.com/images/I/81CLKKvjYUL._SL1500_.jpg" },
-    { id: 906, name: "Geometry Box", price: 250, cat: "stationery", img: "https://adritishome.in/cdn/shop/files/IMG_7964_831610f9-e048-4091-af44-50d7d6200688.jpg?v=1729347329&width=1946" },
-    { id: 907, name: "Markers Set", price: 550, cat: "stationery", img: "https://m.media-amazon.com/images/I/913RdaCg16L._AC_SL1500_.jpg" },
-    { id: 908, name: "Calculator", price: 1200, cat: "stationery", img: "https://simlimsquare.com.sg/image/images/644f618283778.jpg?p=full" },
-    { id: 909, name: "Art Canvas", price: 299, cat: "stationery", img: "https://image.cloudcommercepro.com/external/image180089189.jpg" },
-    { id: 910, name: "Desk Planner", price: 199, cat: "stationery", img: "https://m.media-amazon.com/images/I/61M-08416hL._AC_SL1500_.jpg" },
-    { id: 1001, name: "Selfie Stick", price: 450, cat: "gadgets", img: "https://m.media-amazon.com/images/I/71yCh+whQhL._AC_SL1500_.jpg" },
-    { id: 1002, name: "Phone Stand", price: 199, cat: "gadgets", img: "https://m.media-amazon.com/images/I/61AFMp+u5bL._AC_.jpg" },
-    { id: 1003, name: "Cable Protector", price: 50, cat: "gadgets", img: "https://m.media-amazon.com/images/I/71AA6MVWl+L._AC_.jpg" },
-    { id: 1004, name: "VR Headset", price: 4500, cat: "gadgets", img: "https://media.assettype.com/analyticsinsight/2024-07/30911e7d-341a-4c04-84af-6c662bde5203/Top-VR-Headsets-for-Gaming-in-2024.jpg?w=1200&ar=40:21&auto=format%2Ccompress&ogImage=true&mode=crop&enlarge=true&overlay=false&overlay_position=bottom&overlay_width=100" },
-    { id: 1005, name: "WiFi Plug", price: 850, cat: "gadgets", img: "https://zignito.com/wp-content/uploads/2020/02/WIFI_Plug.jpg" },
-    { id: 1006, name: "USB Fan", price: 399, cat: "gadgets", img: "https://m.media-amazon.com/images/I/81o94zRy8oL._AC_SL1500_.jpg" },
-    { id: 1007, name: "Car Charger", price: 299, cat: "gadgets", img: "https://m.media-amazon.com/images/I/61vmAqMznrL._SL1500_.jpg" },
-    { id: 1008, name: "Mouse Pad", price: 550, cat: "gadgets", img: "https://m.media-amazon.com/images/I/71E+sjVVKuL.jpg" },
-    { id: 1009, name: "Tile Tracker", price: 1200, cat: "gadgets", img: "https://images.ctfassets.net/nywvtjnh7p05/wp_media_485215/5dc81b3198a9bbc2499ad4dc67df41cf/6-1.png" },
-    { id: 1010, name: "E-Reader Case", price: 850, cat: "gadgets", img: "https://i5.walmartimages.com/seo/YANI-Kindle-10-Gen-E-Reader-Case-Slim-Light-Smart-Cover-Auto-Sleep-Wake-Illusions_5356d6e1-8574-4063-bac4-72a8386575fa.0fcd02c2e853e998dde15b2447e4561d.webp?odnHeight=573&odnWidth=573&odnBg=FFFFFF" }
-];
-
-let cart = []; let selectedPay = '';
-
-function saveUser() {
-    const n = document.getElementById("userNameInput").value.trim();
-    if(n) { sessionStorage.setItem("user", n); checkUser(); }
-}
-
-function checkUser() {
-    const u = sessionStorage.getItem("user");
-    if(u) {
-        document.getElementById("loginOverlay").classList.add("hidden");
-        document.getElementById("mainApp").classList.remove("hidden");
-        document.getElementById("welcomeMsg").innerHTML = `<i class="fa fa-user-circle"></i> Welcome, ${u}`;
-        renderCategories(); renderProducts(allProducts); updateUI();
-    }
-}
-
-function renderCategories() {
-    document.getElementById("catBar").innerHTML = categories.map(c => `
-        <div class="cat-item" onclick="filterCat('${c.id}', '${c.name}')">
-            <img src="${c.img}"><span>${c.name}</span>
-        </div>`).join('');
-}
-
-function filterCat(id, name) { 
-    document.getElementById("catTitle").innerText = name;
-    renderProducts(id==='all' ? allProducts : allProducts.filter(p => p.cat === id)); 
-}
-
-function renderProducts(arr) {
-    document.getElementById("products").innerHTML = arr.map(p => `
-        <div class="product">
-            <img src="${p.img}">
-            <div class="p-info">
-                <h4 class="p-name">${p.name}</h4>
-                <b class="p-price">₹${p.price}</b>
-                <button class="add-btn" onclick="addToCart(${p.id})"><i class="fa fa-plus"></i> Add to Bag</button>
-            </div>
-        </div>`).join('');
-}
-
-function addToCart(id) {
-    const p = allProducts.find(x=>x.id===id);
-    const ex = cart.find(x=>x.id===id);
-    if(ex) ex.qty++; else cart.push({...p, qty:1});
-    updateUI();
-}
-
-function updateUI() {
-    const count = cart.reduce((acc, item) => acc + item.qty, 0);
-    document.getElementById("cartCount").innerText = count;
-    let t = 0;
-    document.getElementById("cartItems").innerHTML = cart.map((c) => {
-        t += (c.price * c.qty);
-        return `<div style="display:flex; gap:12px; margin-bottom:15px; background:#f8fafc; padding:10px; border-radius:12px;">
-            <img src="${c.img}" style="width:50px; height:50px; border-radius:8px; object-fit:cover;">
-            <div style="flex:1">
-                <div style="font-size:0.8rem; font-weight:600;">${c.name}</div>
-                <div style="font-size:0.75rem; color:#64748b;">₹${c.price} x ${c.qty}</div>
-            </div>
-            <b style="font-size:0.85rem;">₹${c.price*c.qty}</b>
-        </div>`;
-    }).join('');
-    document.getElementById("totalPrice").innerText = t;
-}
-
-function toggleSidebar(id) { document.getElementById(id).classList.toggle("open"); }
-function openCheckout() { if(cart.length>0) document.getElementById("checkoutModal").classList.remove("hidden"); }
-function closeCheckout() { document.getElementById("checkoutModal").classList.add("hidden"); }
-
-function setPay(m) {
-    selectedPay = m;
-    document.querySelectorAll('.pay-option').forEach(e => e.classList.remove('active'));
-    document.getElementById('opt-'+m).classList.add('active');
-    document.getElementById("upiBox").className = m==='upi' ? '' : 'hidden';
-}
-
-function processOrder() {
-    const ph = document.getElementById("cPhone").value;
-    if(ph.length < 10) return alert("Please enter valid 10-digit number!");
-    if(!selectedPay) return alert("Select payment method!");
-    
-    document.getElementById("checkoutForm").classList.add("hidden");
-    document.getElementById("finalBill").classList.remove("hidden");
-    
-    document.getElementById("bId").innerText = Math.floor(Math.random()*900000);
-    
-    let html = ''; let tot = 0;
-    cart.forEach(c => {
-        tot += (c.price * c.qty);
-        html += `<div class="bill-item"><span>${c.name} (x${c.qty})</span><b>₹${c.price*c.qty}</b></div>`;
-    });
-    document.getElementById("bItems").innerHTML = html;
-    document.getElementById("bTotal").innerText = tot;
-    
-    cart = []; updateUI();
-}
-
-function logout() { sessionStorage.clear(); location.reload(); }
-window.onload = checkUser;
-</script>
+<script src="script.js"></script>
 </body>
 </html>
