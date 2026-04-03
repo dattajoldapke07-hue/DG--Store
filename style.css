@@ -1,0 +1,44 @@
+/* === BASIC RESET === */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#f5f5f5;}
+
+/* === GLASSMORPHISM === */
+.glass{backdrop-filter:blur(10px);background:rgba(255,255,255,0.3);border-radius:12px;padding:10px;box-shadow:0 8px 32px rgba(0,0,0,0.1);transition:all 0.3s ease;}
+.gradient-bg{background:linear-gradient(135deg,#d4a5ff,#a18aff);color:#fff;text-align:center;padding:20px;border-radius:15px;}
+.btn-gradient{background:linear-gradient(135deg,#6a0dad,#b19cd9);color:#fff;padding:10px 20px;border:none;border-radius:25px;cursor:pointer;transition:0.3s;}
+.btn-gradient:hover{opacity:0.8;}
+
+/* HEADER */
+.header{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;position:sticky;top:0;z-index:1000;}
+.header h1{font-weight:700;text-transform:lowercase;color:#6a0dad;}
+.header button{background:none;border:none;font-size:20px;cursor:pointer;position:relative;}
+#cartCount{position:absolute;top:-5px;right:-10px;background:#ff6b6b;color:#fff;font-size:12px;padding:2px 5px;border-radius:50%;}
+
+/* SEARCH BAR */
+.search-bar{margin:10px;}
+.search-bar input{width:100%;padding:10px 15px;border:none;border-radius:25px;outline:none;}
+
+/* LOCATION BAR */
+.location-bar{text-align:center;font-size:14px;margin:10px 0;}
+
+/* CATEGORIES */
+.categories{overflow-x:auto;margin:10px;}
+.category-scroll{display:flex;gap:10px;}
+.category-card{min-width:80px;height:80px;display:flex;justify-content:center;align-items:center;border-radius:50%;background:rgba(255,255,255,0.5);flex-shrink:0;cursor:pointer;transition:0.3s;}
+.category-card:hover{transform:scale(1.05);}
+
+/* PRODUCTS */
+.products h3{margin:15px;}
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px;}
+.product-card{background:rgba(255,255,255,0.6);border-radius:15px;padding:10px;position:relative;transition:0.3s;}
+.product-card:hover{transform:translateY(-5px);box-shadow:0 8px 16px rgba(0,0,0,0.2);}
+.product-card img{width:100%;border-radius:12px;}
+.product-card h4{font-size:14px;margin:5px 0;}
+.product-card p{font-size:12px;margin:2px 0;}
+
+/* CART, CHECKOUT, ADMIN */
+.page,.checkout,.admin-panel{padding:15px;}
+.hidden{display:none;}
+
+/* BOTTOM NAV */
+.bottom-nav{display:flex;justify-content:space-around;position:fixed;bottom:0;width:100%;padding:10px 0;backdrop-filter:blur(10px);background: rgba(255,255,255,0.3);border-top-left-radius:15px;border-top-right-radius:15px;}
