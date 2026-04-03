@@ -1,65 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shoply</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Wishlist & Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .product-card {
+            display: inline-block;
+            width: 200px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            text-align: center;
+            background: #f8fafc;
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .add-btn {
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        #wishlistItems {
+            margin-top: 20px;
+        }
+        #cartItems {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
-<header class="header glass">
-  <div class="left"><button id="menuBtn" class="icon-btn">&#9776;</button></div>
-  <div class="center"><h1>shoply</h1></div>
-  <div class="right">
-    <button id="wishlistBtn" class="icon-btn">&#10084;</button>
-    <button id="cartBtn" class="icon-btn">&#128722;<span id="cartCount">0</span></button>
-  </div>
-</header>
+<h2>Products</h2>
+<div id="products"></div>
 
-<section class="search-bar glass">
-  <input type="text" id="searchInput" placeholder="Search products...">
-</section>
+<h2>Wishlist</h2>
+<div id="wishlistItems"></div>
 
-<section class="banner glass gradient-bg">
-  <div>
-    <h2>35% OFF on first purchase!</h2>
-    <button class="btn-gradient btn-lg">Download Now</button>
-  </div>
-</section>
+<h2>Cart</h2>
+<div id="cartItems"></div>
 
-<section class="location-bar glass">
-  <p>Add delivery location to check extra discount</p>
-</section>
+<h2>Payment Method</h2>
+<select id="paymentMethod">
+    <option value="">--Select Payment Method--</option>
+    <option value="card">Credit/Debit Card</option>
+    <option value="upi">UPI</option>
+    <option value="cod">Cash on Delivery</option>
+</select>
 
-<section class="categories">
-  <div class="category-scroll" id="categoryScroll">
-    <!-- JS populated categories -->
-  </div>
-</section>
+<script>
+    const allProducts = [
+        {id:1,name:"Product 1",price:100,img:"https://via.placeholder.com/150"},
+        {id:2,name:"Product 2",price:200,img:"https://via.placeholder.com/150"},
+        {id:3,name:"Product 3",price:300,img:"https://via.placeholder.com/150"},
+        {id:4,name:"Product 4",price:400,img:"https://via.placeholder.com/150"}
+    ];
 
-<section class="products">
-  <h3>Products For You</h3>
-  <div class="filter-bar glass">
-    <select id="sortSelect" class="select-filter"></select>
-    <select id="categoryFilter" class="select-filter"></select>
-    <select id="genderFilter" class="select-filter"></select>
-    <button id="filterBtn" class="btn-gradient">Apply Filters</button>
-  </div>
-  <div id="productGrid" class="product-grid"></div>
-</section>
+    let wishlist = [];
+    let cart = [];
 
-<nav class="bottom-nav glass">
-  <button class="nav-btn">Home</button>
-  <button class="nav-btn">Categories</button>
-  <button class="nav-btn">Mall</button>
-  <button class="nav-btn">Help</button>
-  <button class="nav-btn">Account</button>
-</nav>
+    function renderProducts(products) {
+        document.getElementById("products").innerHTML = products.map(p => `
+            <div class="product-card">
+                <img src="${p.img}" alt="${p.name}">
+                <div>${p.name}</div>
+                <div>₹${p.price}</div>
+                <button class="add-btn" 
+                    style="margin-top:8px; background:${wishlist.find(x=>x.id===p.id)?'#fecaca':'#fee2e2'}; color:#b91c1c;" 
+                    onclick="toggleWishlist(${p.id})">
+                    <i class="fa ${wishlist.find(x=>x.id===p.id)?'fa-heart':'fa-heart-o'}"></i> Wishlist
+                </button>
+            </div>
+        `).join('');
+    }
 
-<script src="products.js"></script>
-<script src="main.js"></script>
-<script src="cart.js"></script>
+    function updateWishlistUI() {
+        document.getElementById("wishlistItems").innerHTML = wishlist.map((w, i) => `
+            <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:15px; background:#f8fafc; padding:10px; border-radius:12px;">
+                <div style="display:flex; gap:12px;">
+                    <img src="${w.img}" style="width:50px; height:50px; border-radius:8px; object-fit:cover;">
+                    <div style="flex:1">
+                        <div style="font-size:0.8rem; font-weight:600;">${w.name}</div>
+                        <div style="font-size:0.75rem; color:#64748b;">₹${w.price}</div>
+                    </div>
+                    <i class="fa fa-trash" style="cursor:pointer; color:red;" onclick="removeWish(${i})"></i>
+                </div>
+                <button class="add-btn" style="background:#0f172a; color:white;" onclick="moveToCart(${w.id}, ${i})">
+                    Move to Bag 👜
+                </button>
+            </div>
+        `).join('');
+    }
+
+    function updateCartUI() {
+        document.getElementById("cartItems").innerHTML = cart.map(c => `
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                <img src="${c.img}" style="width:50px; height:50px; border-radius:8px; object-fit:cover;">
+                <div>${c.name} - ₹${c.price}</div>
+            </div>
+        `).join('');
+    }
+
+    function toggleWishlist(id) {
+        const p = allProducts.find(x => x.id === id);
+        const index = wishlist.findIndex(x => x.id === id);
+
+        if(index > -1) {
+            wishlist.splice(index, 1);
+        } else {
+            wishlist.push(p);
+            alert("Added to Wishlist ❤️");
+        }
+
+        renderProducts(allProducts);
+        updateWishlistUI();
+    }
+
+    function removeWish(index) {
+        wishlist.splice(index, 1);
+        updateWishlistUI();
+        renderProducts(allProducts);
+    }
+
+    function addToCart(id) {
+        const p = allProducts.find(x => x.id === id);
+        cart.push(p);
+        updateCartUI();
+    }
+
+    function moveToCart(id, index) {
+        const payment = document.getElementById("paymentMethod").value;
+        if(!payment) {
+            alert("Please select a payment method before adding to cart!");
+            return;
+        }
+        addToCart(id);
+        wishlist.splice(index, 1);
+        updateWishlistUI();
+        renderProducts(allProducts);
+    }
+
+    renderProducts(allProducts);
+    updateWishlistUI();
+    updateCartUI();
+</script>
+
 </body>
 </html>
