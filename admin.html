@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Shoply</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section class="admin-panel glass">
+  <h3>Admin Panel</h3>
+  <div class="add-product glass">
+    <input type="text" id="prodName" placeholder="Product Name">
+    <input type="text" id="prodCategory" placeholder="Category">
+    <input type="number" id="prodPrice" placeholder="Price">
+    <input type="text" id="prodImage" placeholder="Image URL">
+    <button onclick="addProduct()" class="btn-gradient">Add Product</button>
+  </div>
+  <div id="adminProducts" class="admin-products"></div>
+</section>
+
+<script src="products.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
