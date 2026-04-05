@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+</head>
+<body>
+
+<h2>Admin Panel</h2>
+
+<h3>Wishlist Items:</h3>
+<div id="wishlistData"></div>
+
+<script>
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+let container = document.getElementById("wishlistData");
+
+wishlist.forEach(item => {
+    let p = document.createElement("p");
+    p.innerText = item;
+    container.appendChild(p);
+});
+</script>
+
+</body>
+</html>
